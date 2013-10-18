@@ -26,7 +26,7 @@ import com.itsum.sabre.client.exception.SabreClientException;
 public class ReadPNRTest {
 	
 	//AddPNRTest测试结果
-	public static final String PNR = "INONOY";
+	public static final String PNR = "FGPMYJ";
 
 	/**
 	 * @param args

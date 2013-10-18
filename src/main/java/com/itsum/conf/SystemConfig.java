@@ -14,7 +14,7 @@ public class SystemConfig {
 	
 	private static Properties prop = new Properties();
 	
-	private static final String defaultFilePath = "supertour.conf";
+	private static final String defaultFilePath = "conf/supertour.conf";
 	
 	/** 使用默认配置文件初始化配置信息 **/
 	public static void init(){
