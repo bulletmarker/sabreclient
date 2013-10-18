@@ -1,5 +1,8 @@
 package com.itsum.sabre.client.connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.conf.SystemConfig;
 import com.itsum.sabre.client.dto.SessionCreateInput;
 import com.itsum.sabre.client.dto.SessionCreateOutput;
@@ -7,23 +10,21 @@ import com.itsum.sabre.client.endpoint.SessionCreateEP;
 import com.itsum.sabre.client.exception.SabreClientException;
 import com.itsum.sabre.client.util.SabreUtil;
 
-
-/**
- * Sabre连接工厂类，用于创建对Sabre WS的连接
- * @author Jason.Ma
+/** 
+* @ClassName: SabreConnectionFactory
+* @Description: Sabre连接工厂类，用于创建对Sabre WS的连接
+* @author Jason.ma
+* @date 2013年10月18日 下午5:03:17
  */
 public class SabreConnectionFactory {
 	
+	public static Logger log = LoggerFactory.getLogger(SabreConnectionFactory.class);
+	
 	public static String SABRE_USERNAME = null;
-	
 	public static String SABRE_PASSWORD = null;
-	
 	public static String SABRE_IPCC = null;
-	
 	public static String SABRE_DOMAIN = null;
-	
 	public static String SABRE_ENDPOIND_URL = null;
-	
 	public static String SABRE_CLIENT_URN = null;
 	
 	/**
@@ -56,7 +57,7 @@ public class SabreConnectionFactory {
 		sessionCreateRQ.setPseudoCityCode(conn.getCpaId());
 		SessionCreateOutput sessionCreateRS = SessionCreateEP.getInstance().call(conn, sessionCreateRQ);
 		conn.setBinarySecurityToken(sessionCreateRS.getBinarySecurityToken());
-		System.out.println("创建连接成功 conversationid=" + conn.getConversationId() + ",token=" + conn.getBinarySecurityToken());
+		log.debug("创建连接成功 conversationid=" + conn.getConversationId() + ",token=" + conn.getBinarySecurityToken());
 		return conn;
 	}
 	

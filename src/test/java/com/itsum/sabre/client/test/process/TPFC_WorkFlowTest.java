@@ -10,10 +10,9 @@ import com.itsum.sabre.client.dto.ota.airbook.OTA_AirBookLLSInput;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoLLSInput;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoRQ;
 import com.itsum.sabre.client.exception.SabreClientException;
-import com.itsum.service.EndTransactionService;
-import com.itsum.service.OTA_AirBookService;
-import com.itsum.service.OTA_AirPriceService;
-import com.itsum.service.TravelItineraryAddService;
+import com.itsum.sabre.service.OTA_AirBookService;
+import com.itsum.sabre.service.OTA_AirPriceService;
+import com.itsum.sabre.service.TravelItineraryAddService;
 
 public class TPFC_WorkFlowTest {
 
@@ -119,7 +118,7 @@ public class TPFC_WorkFlowTest {
 			OTA_AirPriceService.priceAir(conn, "ADT", "1");
 			System.out.println("OTA_AirPriceService 调用成功");
 			
-			EndTransactionService.commit(conn,"LIN HOWARD");
+			conn.commit("LIN HOWARD");
 			System.out.println("EndTransactionService 调用成功");
 			
 		} catch(SabreClientException e){

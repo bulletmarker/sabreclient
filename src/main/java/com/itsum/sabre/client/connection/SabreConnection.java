@@ -1,6 +1,10 @@
 package com.itsum.sabre.client.connection;
 
 import com.itsum.sabre.client.dto.SessionCloseInput;
+import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSInput;
+import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSOutput;
+import com.itsum.sabre.client.dto.endtransaction.EndTransactionRQ;
+import com.itsum.sabre.client.endpoint.EndTransactionLLSEP;
 import com.itsum.sabre.client.endpoint.SessionCloseEP;
 import com.itsum.sabre.client.exception.SabreClientException;
 import com.itsum.sabre.client.util.SabreUtil;
@@ -29,6 +33,31 @@ public class SabreConnection {
 		rq.setPseudoCityCode(this.cpaId);
 		ep.call(this, rq);
 		System.out.println("关闭连接成功,token=" + this.getBinarySecurityToken() + ",conversationid=" + this.getConversationId());
+	}
+	
+	/**
+	 * 提交sabre事务
+	 * @throws SabreClientException 
+	 */
+	public void commit(String receiver) throws SabreClientException{
+		//提交事务
+		EndTransactionLLSInput endTransactionLLSInput = new EndTransactionLLSInput();
+		EndTransactionRQ endTransactionRQ = new EndTransactionRQ();
+		EndTransactionRQ.EndTransaction endTransation = new EndTransactionRQ.EndTransaction();
+		endTransation.setInd(true);//是否提交事务
+		EndTransactionRQ.EndTransaction.Email receiveEmail = new EndTransactionRQ.EndTransaction.Email();
+		receiveEmail.setInd(true);//邮件提醒
+		endTransation.setEmail(receiveEmail);
+		endTransactionRQ.setEndTransaction(endTransation);
+		
+		EndTransactionRQ.Source source = new EndTransactionRQ.Source();
+		source.setReceivedFrom(receiver);
+		endTransactionRQ.setSource(source);
+		endTransactionLLSInput.setRq(endTransactionRQ);
+		EndTransactionLLSOutput output = EndTransactionLLSEP.getInstance().call(this, endTransactionLLSInput);
+		if (!output.isSuccess()) {
+			throw new SabreClientException(output.getErrorCode(),output.getErrorMessage(), output.getSeverity(),output.getErrorInfo());
+		}
 	}
 	
 	/**

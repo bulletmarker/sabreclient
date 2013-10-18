@@ -12,6 +12,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.itsum.uuid.GUIDHexGenerator;
 
+/**
+ * 
+* @ClassName: SabreUtil
+* @Description: TODO
+* @author Jason.ma
+* @date 2013年10月18日 下午5:01:09
+*/
 public class SabreUtil {
 	
 	/**会话id前缀*/
@@ -38,6 +45,10 @@ public class SabreUtil {
 				+ SABRE_NAME_SEPARATOR + SABRE_NAME_DOMAIN;
 	}
 	
+	/**
+	 * 获得时间戳
+	 * @return
+	 */
 	public static String getTimestamp(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 		sdf.setTimeZone(TimeZone.getDefault());
@@ -56,9 +67,4 @@ public class SabreUtil {
 			return null;
 		}
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(getTimestamp());
-	}
-
 }

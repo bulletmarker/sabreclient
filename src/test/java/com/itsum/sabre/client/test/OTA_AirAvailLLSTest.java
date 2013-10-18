@@ -4,7 +4,7 @@ import com.itsum.conf.SystemConfig;
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.exception.SabreClientException;
-import com.itsum.service.OTA_AirAvailService;
+import com.itsum.sabre.service.OTA_AirAvailService;
 
 public class OTA_AirAvailLLSTest {
 

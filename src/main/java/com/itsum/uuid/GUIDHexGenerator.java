@@ -5,9 +5,7 @@ import java.net.InetAddress;
 /**
  * GUID生成器，生成全球唯一id 可靠性：如果同一ip的不同进程在同一时间装载本类则会出现灾难后果 线程安全性：多线程安全
  * 使用方法：GUIDHexGenerator.getInstance().generateId();
- * 
- * @改编 Jason.Ma
- * 
+ * @编写 Jason.Ma
  */
 public class GUIDHexGenerator {
 
