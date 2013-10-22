@@ -7,12 +7,8 @@ package com.itsum.sabre.client.exception;
  */
 public class ParseMessageException extends SabreClientException{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-
 	public ParseMessageException(String msg, Throwable e) {
 		super(msg, e);
 	}

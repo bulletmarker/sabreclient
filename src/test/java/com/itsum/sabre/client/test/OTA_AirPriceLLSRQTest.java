@@ -1,6 +1,10 @@
 package com.itsum.sabre.client.test;
 
-import com.itsum.conf.SystemConfig;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.dto.ota.airprice.OTAAirPriceRQ;
@@ -16,13 +20,16 @@ import com.itsum.sabre.client.endpoint.TravelItineraryReadLLSEP;
 import com.itsum.sabre.client.exception.SabreClientException;
 
 public class OTA_AirPriceLLSRQTest {
+	
+	private static Logger logger = LoggerFactory.getLogger(OTA_AirPriceLLSRQTest.class);
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// 初始化系统配置
-		SystemConfig.init();
+		InitConfig.init();
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
@@ -41,14 +48,14 @@ public class OTA_AirPriceLLSRQTest {
 			travelItineraryReadLLSInput.setRq(travelItineraryReadRQ);
 			TravelItineraryReadLLSOutput travelItineraryReadLLSOutput = TravelItineraryReadLLSEP.getInstance().call(conn, travelItineraryReadLLSInput);
 			if(travelItineraryReadLLSOutput != null && travelItineraryReadLLSOutput.isSuccess()){
-				System.out.println("TravelItineraryReadLLS调用成功");
+				logger.info("TravelItineraryReadLLS调用成功");
 				TravelItineraryReadRS travelItineraryReadRS = travelItineraryReadLLSOutput.getRs();
 			}else{
-				System.err.println("TravelItineraryReadLLS调用失败");
-				System.err.println("ErrorCode=" + travelItineraryReadLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + travelItineraryReadLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + travelItineraryReadLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + travelItineraryReadLLSOutput.getErrorInfo());
+				logger.warn("TravelItineraryReadLLS调用失败");
+				logger.warn("ErrorCode=" + travelItineraryReadLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + travelItineraryReadLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + travelItineraryReadLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + travelItineraryReadLLSOutput.getErrorInfo());
 				return;
 			}
 			
@@ -68,22 +75,22 @@ public class OTA_AirPriceLLSRQTest {
 			
 			OTA_AirPriceLLSOutput oTA_AirPriceLLSOutput = OTA_AirPriceLLSEP.getInstance().call(conn, oTA_AirPriceLLSInput);
 			if(oTA_AirPriceLLSOutput != null && oTA_AirPriceLLSOutput.isSuccess()){
-				System.out.println("AirPriceLLS调用成功");
+				logger.info("AirPriceLLS调用成功");
 				OTAAirPriceRS oTAAirPriceRS = oTA_AirPriceLLSOutput.getRs();
 			}else{
-				System.err.println("AirPriceLLS调用失败");
-				System.err.println("ErrorCode=" + oTA_AirPriceLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + oTA_AirPriceLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + oTA_AirPriceLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + oTA_AirPriceLLSOutput.getErrorInfo());
+				logger.warn("AirPriceLLS调用失败");
+				logger.warn("ErrorCode=" + oTA_AirPriceLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + oTA_AirPriceLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + oTA_AirPriceLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + oTA_AirPriceLLSOutput.getErrorInfo());
 				return;
 			}
 		} catch (SabreClientException e) {
-			System.err.println("调用服务失败:");
-			System.err.println("ErrorCode=" + e.getErrorCode());
-			System.err.println("ErrorMessage=" + e.getErrorMessage());
-			System.err.println("Severity=" + e.getSeverity());
-			System.err.println("ErrorInfo=" + e.getErrorInfo());
+			logger.warn("调用服务失败:");
+			logger.warn("ErrorCode=" + e.getErrorCode());
+			logger.warn("ErrorMessage=" + e.getErrorMessage());
+			logger.warn("Severity=" + e.getSeverity());
+			logger.warn("ErrorInfo=" + e.getErrorInfo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

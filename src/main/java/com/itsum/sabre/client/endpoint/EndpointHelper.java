@@ -1,6 +1,8 @@
 package com.itsum.sabre.client.endpoint;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -9,7 +11,9 @@ import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-import com.itsum.conf.SystemConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.exception.SabreCallException;
 
@@ -19,6 +23,8 @@ import com.itsum.sabre.client.exception.SabreCallException;
  */
 public class EndpointHelper {
 	
+	private static Logger logger = LoggerFactory.getLogger(EndpointHelper.class);
+	
 	/**
 	 * 发送消息到Sabre服务器
 	 * @param message
@@ -27,15 +33,21 @@ public class EndpointHelper {
 	 * @throws SabreCallException 
 	 */
 	public static SOAPMessage sendMessage(SOAPMessage message,SabreConnection conn) throws SabreCallException{
-		if("true".equalsIgnoreCase(SystemConfig.getProperty("sabre.ws.client.dubug"))){
+		if(logger.isDebugEnabled()){
+			logger.debug("============================== send message ==============================");
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			String strMsg;
 			try {
-				System.out.println("==============================上送报文==============================");
-				message.writeTo(System.out);
-				System.out.println("");
+				message.writeTo(out);
+				strMsg = new String(out.toByteArray(),"UTF-8");
+				logger.debug(strMsg);
+				out = null;
+			} catch (UnsupportedEncodingException e) {
+				logger.warn("Message parse error",e);
 			} catch (SOAPException e) {
-				e.printStackTrace();
+				logger.warn("Message parse error",e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.warn("Message parse error",e);
 			}
 		}
 		
@@ -61,15 +73,21 @@ public class EndpointHelper {
 			}
 		}
 		
-		if("true".equalsIgnoreCase(SystemConfig.getProperty("sabre.ws.client.dubug"))){
+		if(logger.isDebugEnabled()){
+			logger.debug("==============================receive message==============================");
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			String strMsg;
 			try {
-				System.out.println("==============================接收报文==============================");
-				receive.writeTo(System.out);
-				System.out.println("");
+				receive.writeTo(out);
+				strMsg = new String(out.toByteArray(),"UTF-8");
+				logger.debug(strMsg);
+				out = null;
+			} catch (UnsupportedEncodingException e) {
+				logger.warn("Message parse error",e);
 			} catch (SOAPException e) {
-				e.printStackTrace();
+				logger.warn("Message parse error",e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.warn("Message parse error",e);
 			}
 		}
 		return receive;

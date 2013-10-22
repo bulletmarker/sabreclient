@@ -1,6 +1,10 @@
 package com.itsum.sabre.client.test.process;
 
-import com.itsum.conf.SystemConfig;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.dto.imap.airseatmap.IMAPAirSeatMapInput;
@@ -8,14 +12,18 @@ import com.itsum.sabre.client.dto.imap.airseatmap.IMAPAirSeatMapOutput;
 import com.itsum.sabre.client.dto.imap.airseatmap.IMAPAirSeatMapRQ;
 import com.itsum.sabre.client.endpoint.IMAPAirSeatMapLLSEP;
 import com.itsum.sabre.client.exception.SabreClientException;
+import com.itsum.sabre.client.test.InitConfig;
 
 public class 查询坐位信息 {
+	
+	private static Logger logger = LoggerFactory.getLogger(查询坐位信息.class);
+	
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
-
-		SystemConfig.init();
+	public static void main(String[] args) throws IOException {
+		InitConfig.init();
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
@@ -45,13 +53,13 @@ public class 查询坐位信息 {
 			IMAPAirSeatMapOutput iMAPAirSeatMapOutput = IMAPAirSeatMapLLSEP.getInstance().call(conn, iMAPAirSeatMapInput);
 			
 			
-			System.out.println("IMAPAirSeatMapLLSEP 调用成功");
+			logger.info("IMAPAirSeatMapLLSEP 调用成功");
 		} catch (SabreClientException e) {
-			System.err.println("调用OTA_AirAvailLLSTest服务失败:");
-			System.err.println("ErrorCode=" + e.getErrorCode());
-			System.err.println("ErrorMessage=" + e.getErrorMessage());
-			System.err.println("Severity=" + e.getSeverity());
-			System.err.println("ErrorInfo=" + e.getErrorInfo());
+			logger.warn("调用OTA_AirAvailLLSTest服务失败:");
+			logger.warn("ErrorCode=" + e.getErrorCode());
+			logger.warn("ErrorMessage=" + e.getErrorMessage());
+			logger.warn("Severity=" + e.getSeverity());
+			logger.warn("ErrorInfo=" + e.getErrorInfo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

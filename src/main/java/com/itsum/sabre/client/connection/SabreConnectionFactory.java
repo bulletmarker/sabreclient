@@ -3,7 +3,9 @@ package com.itsum.sabre.client.connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.itsum.conf.SystemConfig;
+
+
+import com.itsum.sabre.client.cfg.Configuration;
 import com.itsum.sabre.client.dto.SessionCreateInput;
 import com.itsum.sabre.client.dto.SessionCreateOutput;
 import com.itsum.sabre.client.endpoint.SessionCreateEP;
@@ -35,13 +37,13 @@ public class SabreConnectionFactory {
 	public static SabreConnection openConnection() throws SabreClientException{
 		SabreConnection conn = new SabreConnection();
 		conn.setId(SabreUtil.genConversationId());
-		conn.setCpaId(SystemConfig.getProperty("sabre.ws.client.ipcc"));
-		conn.setDomain(SystemConfig.getProperty("sabre.ws.client.domain"));
-		conn.setOrganization(SystemConfig.getProperty("sabre.ws.client.ipcc"));
-		conn.setPassword(SystemConfig.getProperty("sabre.ws.client.password"));
-		conn.setUsername(SystemConfig.getProperty("sabre.ws.client.username"));
-		conn.setEndpointURL(SystemConfig.getProperty("sabre.ws.client.endpoind.url"));
-		conn.setClientURN(SystemConfig.getProperty("sabre.ws.client.urn"));
+		conn.setCpaId(Configuration.getProperty("sabre.ws.client.ipcc"));
+		conn.setDomain(Configuration.getProperty("sabre.ws.client.domain"));
+		conn.setOrganization(Configuration.getProperty("sabre.ws.client.ipcc"));
+		conn.setPassword(Configuration.getProperty("sabre.ws.client.password"));
+		conn.setUsername(Configuration.getProperty("sabre.ws.client.username"));
+		conn.setEndpointURL(Configuration.getProperty("sabre.ws.client.endpoind.url"));
+		conn.setClientURN(Configuration.getProperty("sabre.ws.client.urn"));
 		return openConnection(conn);
 	}
 	
@@ -57,7 +59,7 @@ public class SabreConnectionFactory {
 		sessionCreateRQ.setPseudoCityCode(conn.getCpaId());
 		SessionCreateOutput sessionCreateRS = SessionCreateEP.getInstance().call(conn, sessionCreateRQ);
 		conn.setBinarySecurityToken(sessionCreateRS.getBinarySecurityToken());
-		log.debug("创建连接成功 conversationid=" + conn.getConversationId() + ",token=" + conn.getBinarySecurityToken());
+		log.debug("connection has opened conversationid=" + conn.getConversationId() + ",token=" + conn.getBinarySecurityToken());
 		return conn;
 	}
 	

@@ -1,18 +1,25 @@
 package com.itsum.sabre.client.test;
 
-import com.itsum.conf.SystemConfig;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.exception.SabreClientException;
 
 public class OpenCloseSessionTest {
+	
+	private static Logger logger = LoggerFactory.getLogger(OTA_AirPriceLLSRQTest.class);
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		//初始化系统配置
-		SystemConfig.init();
+		InitConfig.init();
 		SabreConnection conn = null;
 		try{
 			conn = SabreConnectionFactory.openConnection();

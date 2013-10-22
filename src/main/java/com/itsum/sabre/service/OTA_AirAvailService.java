@@ -47,12 +47,9 @@ public class OTA_AirAvailService {
 		input.setRq(rq);
 		OTA_AirAvailLLSOutput output = OTA_AirAvailLLSEP.getInstance().call(conn, input);
 		if (output != null && output.isSuccess()) {
-			// System.out.println("OTA_AirAvailLLS调用成功");
 			return output;
 		} else {
-			throw new SabreClientException(output.getErrorCode(),
-					output.getErrorMessage(), output.getSeverity(),
-					output.getErrorInfo());
+			throw new SabreClientException(output.getErrorCode(),output.getErrorMessage(), output.getSeverity(),output.getErrorInfo());
 		}
 
 	}

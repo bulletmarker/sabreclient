@@ -1,6 +1,10 @@
 package com.itsum.sabre.client.test;
 
-import com.itsum.conf.SystemConfig;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.dto.airseat.AirSeatLLSInput;
@@ -16,13 +20,16 @@ import com.itsum.sabre.client.endpoint.TravelItineraryReadLLSEP;
 import com.itsum.sabre.client.exception.SabreClientException;
 
 public class AirSeatLLSRQTest {
+	
+	private static Logger logger = LoggerFactory.getLogger(AirSeatLLSRQTest.class);
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// 初始化系统配置
-		SystemConfig.init();
+		InitConfig.init();
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
@@ -41,14 +48,14 @@ public class AirSeatLLSRQTest {
 			travelItineraryReadLLSInput.setRq(travelItineraryReadRQ);
 			TravelItineraryReadLLSOutput travelItineraryReadLLSOutput = TravelItineraryReadLLSEP.getInstance().call(conn, travelItineraryReadLLSInput);
 			if(travelItineraryReadLLSOutput != null && travelItineraryReadLLSOutput.isSuccess()){
-				System.out.println("TravelItineraryReadLLS调用成功");
+				logger.info("TravelItineraryReadLLS调用成功");
 				TravelItineraryReadRS travelItineraryReadRS = travelItineraryReadLLSOutput.getRs();
 			}else{
-				System.err.println("TravelItineraryReadLLS调用失败");
-				System.err.println("ErrorCode=" + travelItineraryReadLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + travelItineraryReadLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + travelItineraryReadLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + travelItineraryReadLLSOutput.getErrorInfo());
+				logger.warn("TravelItineraryReadLLS调用失败");
+				logger.warn("ErrorCode=" + travelItineraryReadLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + travelItineraryReadLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + travelItineraryReadLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + travelItineraryReadLLSOutput.getErrorInfo());
 				return;
 			}
 			
@@ -65,22 +72,22 @@ public class AirSeatLLSRQTest {
 			airSeatLLSInput.setRq(airSeatRQ);
 			AirSeatLLSOutput airSeatLLSOutput = AirSeatLLSEP.getInstance().call(conn, airSeatLLSInput);
 			if(airSeatLLSOutput != null && airSeatLLSOutput.isSuccess()){
-				System.out.println("AirSeatLLS调用成功");
+				logger.info("AirSeatLLS调用成功");
 				AirSeatRS airSeatRS = airSeatLLSOutput.getRs();
 			}else{
-				System.err.println("AirSeatLLS调用失败");
-				System.err.println("ErrorCode=" + airSeatLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + airSeatLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + airSeatLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + airSeatLLSOutput.getErrorInfo());
+				logger.warn("AirSeatLLS调用失败");
+				logger.warn("ErrorCode=" + airSeatLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + airSeatLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + airSeatLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + airSeatLLSOutput.getErrorInfo());
 				return;
 			}
 		} catch (SabreClientException e) {
-			System.err.println("调用服务失败:");
-			System.err.println("ErrorCode=" + e.getErrorCode());
-			System.err.println("ErrorMessage=" + e.getErrorMessage());
-			System.err.println("Severity=" + e.getSeverity());
-			System.err.println("ErrorInfo=" + e.getErrorInfo());
+			logger.warn("调用服务失败:");
+			logger.warn("ErrorCode=" + e.getErrorCode());
+			logger.warn("ErrorMessage=" + e.getErrorMessage());
+			logger.warn("Severity=" + e.getSeverity());
+			logger.warn("ErrorInfo=" + e.getErrorInfo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

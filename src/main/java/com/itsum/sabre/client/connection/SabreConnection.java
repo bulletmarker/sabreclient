@@ -1,5 +1,8 @@
 package com.itsum.sabre.client.connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.dto.SessionCloseInput;
 import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSInput;
 import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSOutput;
@@ -19,6 +22,8 @@ import com.itsum.sabre.client.util.SabreUtil;
  */
 public class SabreConnection {
 	
+	private Logger logger = LoggerFactory.getLogger(SabreConnection.class);
+	
 	public SabreConnection(){
 		this.id = SabreUtil.genConversationId();
 	}
@@ -32,7 +37,7 @@ public class SabreConnection {
 		SessionCloseInput rq = new SessionCloseInput();
 		rq.setPseudoCityCode(this.cpaId);
 		ep.call(this, rq);
-		System.out.println("关闭连接成功,token=" + this.getBinarySecurityToken() + ",conversationid=" + this.getConversationId());
+		logger.debug("connection closed token={},conversationid={}",new Object[]{this.getBinarySecurityToken(),this.getConversationId()});
 	}
 	
 	/**

@@ -1,14 +1,13 @@
 package com.itsum.sabre.client.test;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.itsum.conf.SystemConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
-import com.itsum.sabre.client.dto.airseat.AirSeatLLSInput;
-import com.itsum.sabre.client.dto.airseat.AirSeatLLSOutput;
-import com.itsum.sabre.client.dto.airseat.AirSeatRQ;
-import com.itsum.sabre.client.dto.airseat.AirSeatRS;
 import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSInput;
 import com.itsum.sabre.client.dto.endtransaction.EndTransactionLLSOutput;
 import com.itsum.sabre.client.dto.endtransaction.EndTransactionRQ;
@@ -21,19 +20,21 @@ import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoL
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoLLSOutput;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoRQ;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoRS;
-import com.itsum.sabre.client.endpoint.AirSeatLLSEP;
 import com.itsum.sabre.client.endpoint.EndTransactionLLSEP;
 import com.itsum.sabre.client.endpoint.OTA_AirBookLLSEP;
 import com.itsum.sabre.client.endpoint.TravelItineraryAddInfoLLSEP;
 import com.itsum.sabre.client.exception.SabreClientException;
 
 public class AddPNRTest {
+	
+	private static Logger logger = LoggerFactory.getLogger(AddPNRTest.class);
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
-		SystemConfig.init();
+	public static void main(String[] args) throws IOException {
+		InitConfig.init();
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
@@ -92,14 +93,14 @@ public class AddPNRTest {
 			travelItineraryAddInfoLLSInput.setRq(travelItineraryAddInfoRQ);
 			TravelItineraryAddInfoLLSOutput travelItineraryAddInfoLLSOutput = TravelItineraryAddInfoLLSEP.getInstance().call(conn, travelItineraryAddInfoLLSInput);
 			if(travelItineraryAddInfoLLSOutput != null && travelItineraryAddInfoLLSOutput.isSuccess()){
-				System.out.println("TravelItineraryAddInfoLLS调用成功");
+				logger.info("TravelItineraryAddInfoLLS调用成功");
 				TravelItineraryAddInfoRS travelItineraryAddInfoRS = travelItineraryAddInfoLLSOutput.getRs();
 			}else{
-				System.err.println("TravelItineraryAddInfoLLS调用失败");
-				System.err.println("ErrorCode=" + travelItineraryAddInfoLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + travelItineraryAddInfoLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + travelItineraryAddInfoLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + travelItineraryAddInfoLLSOutput.getErrorInfo());
+				logger.warn("TravelItineraryAddInfoLLS调用失败");
+				logger.warn("ErrorCode=" + travelItineraryAddInfoLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + travelItineraryAddInfoLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + travelItineraryAddInfoLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + travelItineraryAddInfoLLSOutput.getErrorInfo());
 				return;
 			}
 			
@@ -131,14 +132,14 @@ public class AddPNRTest {
 			oTA_AirBookLLSInput.setRq(oTAAirBookRQ);
 			OTA_AirBookLLSOutput oTA_AirBookLLSOutput = OTA_AirBookLLSEP.getInstance().call(conn, oTA_AirBookLLSInput);
 			if(oTA_AirBookLLSOutput != null && oTA_AirBookLLSOutput.isSuccess()){
-				System.out.println("OTA_AirBookLLS调用成功");
+				logger.info("OTA_AirBookLLS调用成功");
 				OTAAirBookRS oTAAirBookRS = oTA_AirBookLLSOutput.getRs();
 			}else{
-				System.err.println("OTA_AirBookLLS调用失败");
-				System.err.println("ErrorCode=" + oTA_AirBookLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + oTA_AirBookLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + oTA_AirBookLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + oTA_AirBookLLSOutput.getErrorInfo());
+				logger.warn("OTA_AirBookLLS调用失败");
+				logger.warn("ErrorCode=" + oTA_AirBookLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + oTA_AirBookLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + oTA_AirBookLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + oTA_AirBookLLSOutput.getErrorInfo());
 				return;
 			}			
 			
@@ -159,24 +160,24 @@ public class AddPNRTest {
 			endTransactionLLSInput.setRq(endTransactionRQ);
 			EndTransactionLLSOutput endTransactionLLSOutput = EndTransactionLLSEP.getInstance().call(conn, endTransactionLLSInput);
 			if(endTransactionLLSOutput != null && endTransactionLLSOutput.isSuccess()){
-				System.out.println("EndTransactionLLS调用成功");
+				logger.info("EndTransactionLLS调用成功");
 				EndTransactionRS endTransactionRS = endTransactionLLSOutput.getRs();
 				PNR = endTransactionRS.getItineraryRef().getID();
-				System.err.println("返回PNR=" + PNR);
+				logger.warn("返回PNR=" + PNR);
 			}else{
-				System.err.println("EndTransactionLLS调用失败");
-				System.err.println("ErrorCode=" + endTransactionLLSOutput.getErrorCode());
-				System.err.println("ErrorMessage=" + endTransactionLLSOutput.getErrorMessage());
-				System.err.println("Severity=" + endTransactionLLSOutput.getSeverity());
-				System.err.println("ErrorInfo=" + endTransactionLLSOutput.getErrorInfo());
+				logger.warn("EndTransactionLLS调用失败");
+				logger.warn("ErrorCode=" + endTransactionLLSOutput.getErrorCode());
+				logger.warn("ErrorMessage=" + endTransactionLLSOutput.getErrorMessage());
+				logger.warn("Severity=" + endTransactionLLSOutput.getSeverity());
+				logger.warn("ErrorInfo=" + endTransactionLLSOutput.getErrorInfo());
 				return;
 			}
 		} catch(SabreClientException e){
-			System.out.println("调用服务失败:");
-			System.err.println("ErrorCode=" + e.getErrorCode());
-			System.err.println("ErrorMessage=" + e.getErrorMessage());
-			System.err.println("Severity=" + e.getSeverity());
-			System.err.println("ErrorInfo=" + e.getErrorInfo());
+			logger.info("调用服务失败:");
+			logger.warn("ErrorCode=" + e.getErrorCode());
+			logger.warn("ErrorMessage=" + e.getErrorMessage());
+			logger.warn("Severity=" + e.getSeverity());
+			logger.warn("ErrorInfo=" + e.getErrorInfo());
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {

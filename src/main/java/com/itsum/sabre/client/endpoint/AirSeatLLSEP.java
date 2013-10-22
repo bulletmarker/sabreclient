@@ -3,9 +3,6 @@ package com.itsum.sabre.client.endpoint;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.soap.SOAPMessage;
 
 import com.itsum.sabre.client.connection.SabreConnection;
@@ -18,7 +15,6 @@ import com.itsum.sabre.client.dto.common.ApplicationResults;
 import com.itsum.sabre.client.dto.common.CompletionCodes;
 import com.itsum.sabre.client.dto.common.ProblemInformation;
 import com.itsum.sabre.client.dto.common.SystemSpecificResults;
-import com.itsum.sabre.client.dto.travelitineraryread.TravelItineraryReadRS;
 import com.itsum.sabre.client.exception.BuildMessageException;
 import com.itsum.sabre.client.exception.ParseMessageException;
 import com.itsum.sabre.client.exception.SabreClientException;

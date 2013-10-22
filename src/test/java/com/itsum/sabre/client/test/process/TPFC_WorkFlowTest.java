@@ -1,8 +1,11 @@
 package com.itsum.sabre.client.test.process;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.itsum.conf.SystemConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.dto.ota.airbook.OTAAirBookRQ;
@@ -10,17 +13,21 @@ import com.itsum.sabre.client.dto.ota.airbook.OTA_AirBookLLSInput;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoLLSInput;
 import com.itsum.sabre.client.dto.travelitineraryaddinfo.TravelItineraryAddInfoRQ;
 import com.itsum.sabre.client.exception.SabreClientException;
+import com.itsum.sabre.client.test.InitConfig;
 import com.itsum.sabre.service.OTA_AirBookService;
 import com.itsum.sabre.service.OTA_AirPriceService;
 import com.itsum.sabre.service.TravelItineraryAddService;
 
 public class TPFC_WorkFlowTest {
+	
+	public static Logger logger = LoggerFactory.getLogger(TPFC_WorkFlowTest.class);
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
-		SystemConfig.init();
+	public static void main(String[] args) throws IOException {
+		InitConfig.init();
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
@@ -78,7 +85,7 @@ public class TPFC_WorkFlowTest {
 			travelItineraryAddInfoRQ.setCustomerInfo(customerInfo);
 			travelItineraryAddInfoLLSInput.setRq(travelItineraryAddInfoRQ);
 			TravelItineraryAddService.createPNR(conn, travelItineraryAddInfoLLSInput);
-			System.out.println("TravelItineraryAddService 调用成功");
+			logger.info("TravelItineraryAddService 调用成功");
 			
 			//添加行程预定信息
 			OTAAirBookRQ oTAAirBookRQ = new OTAAirBookRQ();
@@ -113,20 +120,20 @@ public class TPFC_WorkFlowTest {
 			OTA_AirBookLLSInput oTA_AirBookLLSInput = new OTA_AirBookLLSInput();
 			oTA_AirBookLLSInput.setRq(oTAAirBookRQ);
 			OTA_AirBookService.bookAir(conn, oTA_AirBookLLSInput);
-			System.out.println("TravelItineraryAddService 调用成功");
+			logger.info("TravelItineraryAddService 调用成功");
 			
 			OTA_AirPriceService.priceAir(conn, "ADT", "1");
-			System.out.println("OTA_AirPriceService 调用成功");
+			logger.info("OTA_AirPriceService 调用成功");
 			
 			conn.commit("LIN HOWARD");
-			System.out.println("EndTransactionService 调用成功");
+			logger.info("EndTransactionService 调用成功");
 			
 		} catch(SabreClientException e){
-			System.out.println("调用服务失败:");
-			System.err.println("ErrorCode=" + e.getErrorCode());
-			System.err.println("ErrorMessage=" + e.getErrorMessage());
-			System.err.println("Severity=" + e.getSeverity());
-			System.err.println("ErrorInfo=" + e.getErrorInfo());
+			logger.warn("调用服务失败:");
+			logger.warn("ErrorCode=" + e.getErrorCode());
+			logger.warn("ErrorMessage=" + e.getErrorMessage());
+			logger.warn("Severity=" + e.getSeverity());
+			logger.warn("ErrorInfo=" + e.getErrorInfo());
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {

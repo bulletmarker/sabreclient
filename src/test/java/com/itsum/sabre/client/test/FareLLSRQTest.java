@@ -1,6 +1,10 @@
 package com.itsum.sabre.client.test;
 
-import com.itsum.conf.SystemConfig;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
 import com.itsum.sabre.client.dto.fare.FareLLSInput;
@@ -12,9 +16,11 @@ import com.itsum.sabre.client.exception.SabreClientException;
 
 public class FareLLSRQTest {
 	
-	public static void main(String[] args) {
+	private static Logger logger = LoggerFactory.getLogger(FareLLSRQTest.class);
+	
+	public static void main(String[] args) throws IOException {
 		//初始化系统配置
-		SystemConfig.init();
+		InitConfig.init();
 		SabreConnection conn = null;
 		try{
 			conn = SabreConnectionFactory.openConnection();
@@ -46,21 +52,21 @@ public class FareLLSRQTest {
 			input.setRq(rq);
 			FareLLSOutput output = FareLLSEP.getInstance().call(conn, input);
 			if(output != null && output.isSuccess()){
-				System.out.println("FareLLSRQ调用成功");
+				logger.info("FareLLSRQ调用成功");
 			}else{
-				System.out.println("FareLLSRQ调用失败");
-				System.out.println("ErrorCode=" + output.getErrorCode());
-				System.out.println("ErrorMessage=" + output.getErrorMessage());
-				System.out.println("Severity=" + output.getSeverity());
-				System.out.println("ErrorInfo=" + output.getErrorInfo());
+				logger.info("FareLLSRQ调用失败");
+				logger.info("ErrorCode=" + output.getErrorCode());
+				logger.info("ErrorMessage=" + output.getErrorMessage());
+				logger.info("Severity=" + output.getSeverity());
+				logger.info("ErrorInfo=" + output.getErrorInfo());
 			}
 			FareRS rs = output.getRs();
 		}catch(SabreClientException e){
-			System.out.println("调用服务失败:");
-			System.out.println("ErrorCode=" + e.getErrorCode());
-			System.out.println("ErrorMessage=" + e.getErrorMessage());
-			System.out.println("Severity=" + e.getSeverity());
-			System.out.println("ErrorInfo=" + e.getErrorInfo());
+			logger.info("调用服务失败:");
+			logger.info("ErrorCode=" + e.getErrorCode());
+			logger.info("ErrorMessage=" + e.getErrorMessage());
+			logger.info("Severity=" + e.getSeverity());
+			logger.info("ErrorInfo=" + e.getErrorInfo());
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

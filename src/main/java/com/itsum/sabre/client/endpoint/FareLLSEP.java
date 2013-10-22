@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import javax.xml.soap.SOAPMessage;
 
-import com.itsum.conf.SystemConfig;
+import com.itsum.sabre.client.cfg.Configuration;
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.dto.ISabreRS;
 import com.itsum.sabre.client.dto.fare.FareLLSInput;
@@ -68,7 +68,7 @@ public class FareLLSEP implements ISabreEndpoint<FareLLSInput,FareLLSOutput>{
 		FareRQ rq = input.getRq();
 		rq.setVersion(PAYLOAD_VERSION);
 		rq.setTimeStamp(SabreUtil.getTimestamp());
-		rq.setTarget(SystemConfig.getProperty("sabre.ws.client.target"));
+		rq.setTarget(Configuration.getProperty("sabre.ws.client.target"));
 		FareRQ.POS pos = new FareRQ.POS();
 		FareRQ.POS.Source source = new FareRQ.POS.Source();
 		source.setPseudoCityCode(conn.getCpaId());

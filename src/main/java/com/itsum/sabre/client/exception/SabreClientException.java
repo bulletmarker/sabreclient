@@ -1,11 +1,12 @@
 package com.itsum.sabre.client.exception;
 
 /**
- * 调用Sabre服务异常
- * @author lenovo
- *
+ * Sabre异常
+ * @author Jason.ma
  */
 public class SabreClientException extends Exception{
+
+	private static final long serialVersionUID = 1L;
 	
 	private String errorCode = null;
 	
@@ -17,6 +18,11 @@ public class SabreClientException extends Exception{
 
 	public SabreClientException(String msg){
 		super(msg);
+	}
+	
+	
+	public SabreClientException(String msg,Throwable e){
+		super(msg,e);
 	}
 	
 	public SabreClientException(String p_errorCode,String p_errorMessage,String p_severity,String p_errorInfo){
@@ -56,15 +62,6 @@ public class SabreClientException extends Exception{
 
 	public void setErrorInfo(String errorInfo) {
 		this.errorInfo = errorInfo;
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	public SabreClientException(String msg,Throwable e){
-		super(msg,e);
 	}
 
 }
