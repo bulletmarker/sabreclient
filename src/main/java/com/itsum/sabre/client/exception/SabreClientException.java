@@ -4,7 +4,7 @@ package com.itsum.sabre.client.exception;
  * Sabre异常
  * @author Jason.ma
  */
-public class SabreClientException extends Exception{
+public class SabreClientException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 	
