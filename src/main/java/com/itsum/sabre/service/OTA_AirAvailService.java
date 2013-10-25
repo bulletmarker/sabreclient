@@ -2,6 +2,7 @@ package com.itsum.sabre.service;
 
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.dto.ota.airavail.OTAAirAvailRQ;
+import com.itsum.sabre.client.dto.ota.airavail.OTAAirAvailRS;
 import com.itsum.sabre.client.dto.ota.airavail.OTA_AirAvailLLSInput;
 import com.itsum.sabre.client.dto.ota.airavail.OTA_AirAvailLLSOutput;
 import com.itsum.sabre.client.endpoint.OTA_AirAvailLLSEP;
@@ -23,7 +24,7 @@ public class OTA_AirAvailService {
 	 * @return
 	 * @throws SabreClientException
 	 */
-	public static OTA_AirAvailLLSOutput queryAvail(SabreConnection conn,
+	public static OTAAirAvailRS queryAvail(SabreConnection conn,
 			String p_departureDateTime, String p_arrivalDateTime,
 			String p_originLocation, String p_destinationLocation)
 			throws SabreClientException {
@@ -47,7 +48,7 @@ public class OTA_AirAvailService {
 		input.setRq(rq);
 		OTA_AirAvailLLSOutput output = OTA_AirAvailLLSEP.getInstance().call(conn, input);
 		if (output != null && output.isSuccess()) {
-			return output;
+			return output.getRs();
 		} else {
 			throw new SabreClientException(output.getErrorCode(),output.getErrorMessage(), output.getSeverity(),output.getErrorInfo());
 		}

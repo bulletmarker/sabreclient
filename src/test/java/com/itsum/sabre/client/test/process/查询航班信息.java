@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.itsum.sabre.client.connection.SabreConnection;
 import com.itsum.sabre.client.connection.SabreConnectionFactory;
+import com.itsum.sabre.client.dto.ota.airavail.OTAAirAvailRS;
 import com.itsum.sabre.client.dto.ota.airavail.OTA_AirAvailLLSOutput;
 import com.itsum.sabre.client.exception.SabreClientException;
 import com.itsum.sabre.client.test.InitConfig;
@@ -35,13 +36,12 @@ public class 查询航班信息 {
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
-			OTA_AirAvailLLSOutput output = OTA_AirAvailService.queryAvail(conn,出发时间, 到达日期,出发地, 目的地);
+			OTAAirAvailRS rs = OTA_AirAvailService.queryAvail(conn,出发时间, 到达日期,出发地, 目的地);
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			String json = mapper.writeValueAsString(output);
+			String json = mapper.writeValueAsString(rs);
 			logger.info("OTA_AirAvailService 调用成功");
 			logger.info(json);
-			
 		} catch (SabreClientException e) {
 			System.err.println("调用OTA_AirAvailLLSTest服务失败:");
 			System.err.println("ErrorCode=" + e.getErrorCode());
