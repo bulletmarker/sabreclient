@@ -19,7 +19,7 @@ public class OTA_AirAvailLLSTest {
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
-			OTA_AirAvailService.queryAvail(conn, "03-02T12:00", null, "LAX", "SFO");
+			OTA_AirAvailService.queryAvail(conn, "03-02T12:00", "LAX", "SFO");
 			logger.info("OTA_AirAvailService 调用成功");
 		} catch (SabreClientException e) {
 			logger.warn("调用OTA_AirAvailLLSTest服务失败:");

@@ -21,8 +21,6 @@ public class 查询航班信息 {
 	
 	private static String 出发时间 = "11-20T14:00";
 	
-	private static String 到达日期 = null;
-	
 	private static String 出发地 = "SFO";//三位城市代码
 	
 	private static String 目的地 = "HKG" ;//三位城市代码
@@ -36,7 +34,7 @@ public class 查询航班信息 {
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
-			OTAAirAvailRS rs = OTA_AirAvailService.queryAvail(conn,出发时间, 到达日期,出发地, 目的地);
+			OTAAirAvailRS rs = OTA_AirAvailService.queryAvail(conn,出发时间,出发地, 目的地);
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			String json = mapper.writeValueAsString(rs);

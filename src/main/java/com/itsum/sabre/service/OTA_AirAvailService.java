@@ -25,7 +25,7 @@ public class OTA_AirAvailService {
 	 * @throws SabreClientException
 	 */
 	public static OTAAirAvailRS queryAvail(SabreConnection conn,
-			String p_departureDateTime, String p_arrivalDateTime,
+			String p_departureDateTime,
 			String p_originLocation, String p_destinationLocation)
 			throws SabreClientException {
 
@@ -35,7 +35,6 @@ public class OTA_AirAvailService {
 		OTAAirAvailRQ.OriginDestinationInformation.FlightSegment flightSegment = new OTAAirAvailRQ.OriginDestinationInformation.FlightSegment();
 		//出发和到达时间
 		flightSegment.setDepartureDateTime(p_departureDateTime);
-		flightSegment.setArrivalDateTime(p_arrivalDateTime);
 		OTAAirAvailRQ.OriginDestinationInformation.FlightSegment.DestinationLocation destinationLocation = new OTAAirAvailRQ.OriginDestinationInformation.FlightSegment.DestinationLocation();
 		//目的地和出发地
 		destinationLocation.setLocationCode(p_destinationLocation);
