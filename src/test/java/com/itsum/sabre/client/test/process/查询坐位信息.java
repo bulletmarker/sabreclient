@@ -34,6 +34,7 @@ public class 查询坐位信息 {
 			flightSegmentAirSeatMap.setDepartureDateTime("2013-11-20");
 			flightSegmentAirSeatMap.setFlightNumber("6079");
 			flightSegmentAirSeatMap.setResBookDesigCode("F");
+			//flightSegmentAirSeatMap.setPreference("AN");
 			IMAPAirSeatMapRQ.OriginDestinationInformation.FlightSegment.DestinationLocation destinationLocationSeatMap = new IMAPAirSeatMapRQ.OriginDestinationInformation.FlightSegment.DestinationLocation();
 			destinationLocationSeatMap.setLocationCode("HKG");
 			flightSegmentAirSeatMap.setDestinationLocation(destinationLocationSeatMap);
