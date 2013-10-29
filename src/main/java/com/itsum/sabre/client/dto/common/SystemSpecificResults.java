@@ -47,21 +47,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class SystemSpecificResults {
 
-    @XmlElement(name = "HostCommand")
+    @XmlElement(name = "HostCommand" ,namespace = "http://services.sabre.com/STL/v01")
     protected HostCommand hostCommand;
-    @XmlElement(name = "Message")
+    @XmlElement(name = "Message", namespace = "http://services.sabre.com/STL/v01")
     protected List<MessageCondition> message;
-    @XmlElement(name = "ShortText")
+    @XmlElement(name = "ShortText", namespace = "http://services.sabre.com/STL/v01")
     protected String shortText;
-    @XmlElement(name = "Element")
+    @XmlElement(name = "Element", namespace = "http://services.sabre.com/STL/v01")
     protected String element;
-    @XmlElement(name = "RecordID")
+    @XmlElement(name = "RecordID", namespace = "http://services.sabre.com/STL/v01")
     protected String recordID;
-    @XmlElement(name = "DocURL")
-    @XmlSchemaType(name = "anyURI")
+    @XmlElement(name = "DocURL", namespace = "http://services.sabre.com/STL/v01")
+    @XmlSchemaType(name = "anyURI", namespace = "http://services.sabre.com/STL/v01")
     protected String docURL;
     @XmlAttribute
-    @XmlSchemaType(name = "dateTime")
+    @XmlSchemaType(name = "dateTime", namespace = "http://services.sabre.com/STL/v01")
     protected XMLGregorianCalendar timeStamp;
 
     /**

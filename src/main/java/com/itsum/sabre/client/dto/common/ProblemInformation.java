@@ -38,7 +38,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class ProblemInformation {
 
-    @XmlElement(name = "SystemSpecificResults")
+    @XmlElement(name = "SystemSpecificResults",namespace="http://services.sabre.com/STL/v01")
     protected List<SystemSpecificResults> systemSpecificResults;
     @XmlAttribute
     protected ErrorType type;

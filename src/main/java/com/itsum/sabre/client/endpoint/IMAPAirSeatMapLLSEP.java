@@ -127,14 +127,19 @@ public class IMAPAirSeatMapLLSEP implements ISabreEndpoint<IMAPAirSeatMapInput,I
 			ProblemInformation error = applicationResults.getError().get(0);
 			output.setErrorCode(applicationResults.getStatus().toString());
 			List<SystemSpecificResults> sr = error.getSystemSpecificResults();
+			StringBuilder errormessage = new StringBuilder();
+			errormessage.append("type=").append(error.getType()).append(",TimeStamp=").append(error.getTimeStamp());
 			if(sr != null && sr.size() > 0){
 				SystemSpecificResults s = sr.get(0);
-				output.setErrorMessage(s.getShortText());
-				output.setSeverity(s.toString());
+				errormessage.append(",ShortText=").append(s.getShortText());
+				output.setSeverity(null);
 				output.setErrorInfo((s.getMessage()!=null && s.getMessage().size() > 0) ? error.getSystemSpecificResults().get(0).getMessage().get(0).getValue():null);
+				errormessage.append("Error.message:").append(output.getErrorInfo());
+				output.setErrorMessage(errormessage.toString());
 			}else{
 				output.setErrorMessage("请查看返回报文");
 			}
+			errormessage = null;
 		}
 		output.setRs(rs);
 	}
