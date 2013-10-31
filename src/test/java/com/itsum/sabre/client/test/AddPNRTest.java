@@ -79,7 +79,7 @@ public class AddPNRTest {
 			TravelItineraryAddInfoRQ.CustomerInfo.PersonName personName = new TravelItineraryAddInfoRQ.CustomerInfo.PersonName();
 			personName.setNameReference("TEST");
 			personName.setGivenName("HOWARD");
-			personName.setSurname("LINL");
+			personName.setSurname("LIN");
 			personNames.add(personName);
 			
 			TravelItineraryAddInfoRQ.CustomerInfo.ContactNumbers contactNumbers = new TravelItineraryAddInfoRQ.CustomerInfo.ContactNumbers();

@@ -31,7 +31,7 @@ public class AddPNRService {
 	
 	private static Logger logger = LoggerFactory.getLogger(AddPNRService.class);
 
-	public static String addInfo(SabreConnection conn,TravelItineraryAddInfoRQ travelItineraryAddInfoRQ,OTAAirBookRQ oTAAirBookRQ)
+	public static String bookItinerary(SabreConnection conn,TravelItineraryAddInfoRQ travelItineraryAddInfoRQ,OTAAirBookRQ oTAAirBookRQ)
 			throws SabreClientException {
 		TravelItineraryAddInfoLLSInput travelItineraryAddInfoLLSInput = new TravelItineraryAddInfoLLSInput();
 		travelItineraryAddInfoLLSInput.setRq(travelItineraryAddInfoRQ);
