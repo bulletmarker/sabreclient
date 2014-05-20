@@ -2,7 +2,7 @@ https://drc.sabre.com/oer/
 
 Username: roy.liao@signettours.com
 Pass: a2s0po712
-你可以上去看看，里面有所有服务的说明和参数XML的格式说明，你有问题可以跟我联系
+浣犲彲浠ヤ笂鍘荤湅鐪嬶紝閲岄潰鏈夋墍鏈夋湇鍔＄殑璇存槑鍜屽弬鏁癤ML鐨勬牸寮忚鏄庯紝浣犳湁闂鍙互璺熸垜鑱旂郴
 
 
 http://webservices.sabre.com/wsdl/sabreXML1.0.00/usg/SessionCreateRQ.wsdl
