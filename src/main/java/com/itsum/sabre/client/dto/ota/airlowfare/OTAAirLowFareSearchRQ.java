@@ -1056,7 +1056,7 @@ public class OTAAirLowFareSearchRQ {
             @XmlAttribute(name = "ConnectionInd")
             protected String connectionInd;
             @XmlAttribute(name = "DepartureDateTime")
-            protected XMLGregorianCalendar departureDateTime;
+            protected String departureDateTime;
             @XmlAttribute(name = "ResBookDesigCode")
             protected String resBookDesigCode;
 
@@ -1270,7 +1270,7 @@ public class OTAAirLowFareSearchRQ {
              *     {@link XMLGregorianCalendar }
              *     
              */
-            public XMLGregorianCalendar getDepartureDateTime() {
+            public String getDepartureDateTime() {
                 return departureDateTime;
             }
 
@@ -1282,7 +1282,7 @@ public class OTAAirLowFareSearchRQ {
              *     {@link XMLGregorianCalendar }
              *     
              */
-            public void setDepartureDateTime(XMLGregorianCalendar value) {
+            public void setDepartureDateTime(String value) {
                 this.departureDateTime = value;
             }
 
