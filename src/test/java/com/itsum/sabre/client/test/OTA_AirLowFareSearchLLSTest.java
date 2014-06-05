@@ -19,7 +19,7 @@ public class OTA_AirLowFareSearchLLSTest {
 		SabreConnection conn = null;
 		try {
 			conn = SabreConnectionFactory.openConnection();
-			OTA_AirLowFareSearchLLSService.queryLowFare(conn, "2014-05-22T15:00:00", "LAX", "SFO");
+			OTA_AirLowFareSearchLLSService.queryLowFare(conn, "2014-05-27T15:00:00", "LAX", "SFO");
 			logger.info("OTA_AirLowFareSearchLLS 调用成功");
 		} catch (SabreClientException e) {
 			logger.warn("调用OTA_AirLowFareSearchLLS服务失败:");
